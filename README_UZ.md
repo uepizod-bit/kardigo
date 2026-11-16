@@ -1,7 +1,7 @@
-# KADRGO Studio 6.0.1 — AI Integration Alpha
+# KADRGO Studio 6.0.2 — AI Integration Alpha
 
 Foydalanuvchi yuborgan v0.1 ZIP asosida. Bu dastlabki integratsiya alpha, yakuniy
-professional mahsulot emas. Native Windows ijro sinovi hali bajarilmagan.
+professional mahsulot emas. Montaj yadrosi (24 test), CPU integratsiyalari va Qt oyna lifecycle sinovi Windows Server 2022 da bajarildi. Installer faqat successful CI natijasidan olinadi. GPU va amaliy ish jarayoni alohida tekshiriladi.
 
 Windows: Setup.exe -> Install -> ish stolidagi KADRGO Studio 6.
 To'liq amaliy yo'riqnoma: packaging/BOSHLASH.txt (installer ichida BOSHLASH.txt).

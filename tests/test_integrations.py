@@ -39,6 +39,15 @@ class Tests(unittest.TestCase):
  def test_whisper_real_model(self):
   path=self.out/'silence.wav';worker.ff(['-f','lavfi','-i','anullsrc=r=16000:cl=mono','-t','1',str(path)])
   r=worker.whisper({'source':str(path),'vault':str(self.out),'model':str(ROOT/'assets/models/whisper-tiny'),'language':'uz'},self.out);self.assertEqual(r['segments'],[])
+ def test_worker_unicode_with_legacy_console(self):
+  import os
+  out=self.out/'G‘ijduvon';out.mkdir()
+  request=self.out/'request.json'
+  request.write_text(json.dumps({'engine':'ocio','output':str(out),'vault':str(self.out),'input_space':'sRGB - Display','display':'Rec.1886 Rec.709 - Display','view':'ACES 1.0 - SDR Video'},ensure_ascii=False),encoding='utf-8')
+  env=dict(os.environ,PYTHONIOENCODING='ascii',PYTHONUTF8='0')
+  result=subprocess.run([sys.executable,str(ROOT/'engine_worker.py'),str(request)],env=env,capture_output=True,timeout=60)
+  self.assertEqual(result.returncode,0,result.stderr.decode('utf-8',errors='replace'))
+  self.assertEqual(json.loads(result.stdout.decode('utf-8'))['kind'],'lut')
  def test_original_guard(self):
   from kadrgo.render.exporter import export,ExportError
   p=Project('test',Settings(160,128,'12/1'));a=probe(str(self.src));p.assets[a.id]=a;edit.add_clip(p,'V1',a.id,0,0,12);before=self.src.read_bytes()

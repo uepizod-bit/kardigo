@@ -9,14 +9,14 @@ RequestExecutionLevel user
 SetCompressor /SOLID zlib
 Icon "${PAYLOAD}/KADRGO.ico"
 BrandingText "KADRGO Studio | AI Integration Alpha"
-VIProductVersion "6.0.1.0"
+VIProductVersion "6.0.2.0"
 VIAddVersionKey "ProductName" "KADRGO Studio"
 VIAddVersionKey "FileDescription" "KADRGO Studio 6 Windows x64 Alpha Setup"
-VIAddVersionKey "FileVersion" "6.0.1.0"
+VIAddVersionKey "FileVersion" "6.0.2.0"
 VIAddVersionKey "LegalCopyright" "KADRGO Studio contributors"
 !define MUI_ABORTWARNING
 !define MUI_WELCOMEPAGE_TITLE "KADRGO Studio 6 AI Alpha"
-!define MUI_WELCOMEPAGE_TEXT "Windows 10/11 x64. Python, Qt, FFmpeg and core AI libraries included.$\r$\n$\r$\nUnsigned alpha. Native Windows testing remains pending. Optional engines require local services or compatible environments. Read BOSHLASH.txt."
+!define MUI_WELCOMEPAGE_TEXT "Windows 10/11 x64. Python, Qt, FFmpeg and core AI libraries included.$\r$\n$\r$\nUnsigned alpha. See native Windows validation results for this build. Optional engines require local services or compatible environments. Read BOSHLASH.txt."
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\BOSHLASH.txt"
@@ -48,7 +48,7 @@ Section
  CreateShortcut "$DESKTOP\KADRGO Studio 6.lnk" "$INSTDIR\runtime\pythonw.exe" '$\"$INSTDIR\bootstrap.py$\"' "$INSTDIR\KADRGO.ico"
  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\KADRGOStudio6Alpha" "DisplayName" "KADRGO Studio 6 AI Alpha"
  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\KADRGOStudio6Alpha" "UninstallString" '$\"$INSTDIR\Uninstall.exe$\"'
- WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\KADRGOStudio6Alpha" "DisplayVersion" "6.0.1"
+ WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\KADRGOStudio6Alpha" "DisplayVersion" "6.0.2"
 SectionEnd
 Section "Uninstall"
  SetShellVarContext current

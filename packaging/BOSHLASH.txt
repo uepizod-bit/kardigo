@@ -2,7 +2,7 @@ KADRGO STUDIO 6.0.1 — WINDOWS AI INTEGRATION ALPHA
 
 Windows 10/11 x64. Setup.exe -> Install -> KADRGO Studio 6 yorlig'i.
 Python, Qt, FFmpeg, asosiy kutubxonalar va Whisper tiny modeli paket ichida.
-Bu imzolanmagan alpha. Haqiqiy Windowsda ijro va installer hali sinalmagan.
+Bu imzolanmagan alpha. Montaj, CPU integratsiyalari va GUI Windows Server 2022 da sinovdan o‘tdi. Installer uchun successful Windows CI artifactidan foydalaning. GPU va real ish jarayoni alohida tekshiriladi.
 Himoyani o'chirmang. Bloklansa xato matnini yuboring.
 
 ISH JARAYONI

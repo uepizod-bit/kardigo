@@ -1,5 +1,9 @@
 import sys,os,json,traceback
 from pathlib import Path
+# QProcess uses pipes, so Windows otherwise inherits a legacy code page.
+for stream in (sys.stdout, sys.stderr):
+ if stream is not None and hasattr(stream, 'reconfigure'):
+  stream.reconfigure(encoding='utf-8', errors='replace')
 root=Path(__file__).resolve().parent;sys.path.insert(0,str(root))
 from kadrgo.integrations.runtime import configure
 configure()

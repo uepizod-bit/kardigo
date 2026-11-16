@@ -22,7 +22,7 @@ LINKS={'whisper':'SYSTRAN/faster-whisper','scenes':'Breakthrough/PySceneDetect',
 class EnginesDialog(QDialog):
  def __init__(self,win,key='whisper'):
   super().__init__(win);self.win=win;self.proc=None;self.result=None;self.req=None;self.settings_path=win.vault.root/'engines.json'
-  try:self.settings=json.loads(self.settings_path.read_text())
+  try:self.settings=json.loads(self.settings_path.read_text(encoding='utf-8'))
   except (OSError,ValueError):self.settings={}
   self.setWindowTitle('KADRGO · AI / Rang markazi');self.resize(1140,800);outer=QVBoxLayout(self);title=QLabel('KADRGO  /  AI VA RANG MARKAZI');title.setStyleSheet('font-size:22px;font-weight:bold;color:#F6B84A;padding:12px');outer.addWidget(title)
   split=QSplitter();self.list=QListWidget();self.keys=list(ENGINES)

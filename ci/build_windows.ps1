@@ -16,7 +16,7 @@ choco install nsis --version=3.11 -y --no-progress
 if ($LASTEXITCODE -ne 0) { throw 'NSIS installation failed' }
 $nsis = "${env:ProgramFiles(x86)}/NSIS/makensis.exe"
 if (!(Test-Path $nsis)) { throw 'NSIS compiler not found' }
-$setup = Join-Path $outputDir 'KADRGO-Studio-6.0.1-Windows-CI-Setup.exe'
+$setup = Join-Path $outputDir 'KADRGO-Studio-6.0.2-Windows-CI-Setup.exe'
 & $nsis "/DWINDOWS_BUILD" "/DPAYLOAD=$payload" "/DOUTPUT=$setup" packaging/windows.nsi
 if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
 Get-FileHash $setup -Algorithm SHA256 | Format-List | Out-File "$setup.sha256.txt"
