@@ -9,7 +9,7 @@ permissions:
 jobs:
   windows:
     runs-on: windows-2022
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       PYTHONUTF8: '1'
       QT_MEDIA_BACKEND: ffmpeg
@@ -41,7 +41,16 @@ jobs:
         run: python ci/integrations_cpu.py
       - name: Native Qt window lifecycle
         run: python ci/gui_smoke.py
+      - name: Build and verify installer
+        shell: pwsh
+        run: ./ci/build_windows.ps1
+      - name: Upload verified installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: KADRGO-Windows-Installer
+          path: output/*
+          retention-days: 14
       - name: Clarify GPU coverage
         shell: pwsh
         run: |
-          'OpenGL/Vulkan, real model inference beyond Whisper silence, installer/uninstaller and manual playback remain separate validation requirements.' >> $env:GITHUB_STEP_SUMMARY
+          'OpenGL/Vulkan, real model inference beyond Whisper silence, manual playback and real-world stability remain separate validation requirements.' >> $env:GITHUB_STEP_SUMMARY

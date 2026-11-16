@@ -24,7 +24,7 @@ def which(name: str) -> str:
     env = os.environ.get(f"KADRGO_{name.upper()}")
     if env:
         return env
-    here = Path(__file__).resolve().parents[3] / "bin"
+    here = Path(__file__).resolve().parents[2] / "bin"
     for cand in (here / f"{name}.exe", here / name):
         if cand.exists():
             return str(cand)

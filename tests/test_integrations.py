@@ -6,6 +6,7 @@ from kadrgo.integrations import worker
 from kadrgo.integrations.color import bake
 from kadrgo.integrations.gl import render
 from kadrgo.fx.colorspace import read_cube
+from kadrgo.fx.catalog import fpath
 from kadrgo.core.model import Project,Settings
 from kadrgo.core import edit
 from kadrgo.media.probe import probe
@@ -17,7 +18,7 @@ class Tests(unittest.TestCase):
  def tearDown(self):self.tmp.cleanup()
  def test_ocio(self):
   p=bake({'input_space':'sRGB - Display','display':'Rec.1886 Rec.709 - Display','view':'ACES 1.0 - SDR Video'},self.out/'t.cube',9);self.assertEqual(read_cube(p)['size'],9)
-  worker.ff(['-i',str(self.src),'-vf',f'lut3d={p}','-frames:v','1',str(self.out/'result.png')]);self.assertTrue((self.out/'result.png').is_file())
+  worker.ff(['-i',str(self.src),'-vf',f"lut3d=file='{fpath(str(p))}'",'-frames:v','1',str(self.out/'result.png')]);self.assertTrue((self.out/'result.png').is_file())
  def test_scenes(self):
   r=worker.scenes({'source':str(self.src)},self.out);self.assertTrue(r['scenes']);self.assertAlmostEqual(r['scenes'][0]['start'],0)
  def test_gl_video(self):

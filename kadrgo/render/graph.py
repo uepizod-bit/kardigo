@@ -281,7 +281,9 @@ def build_video(project: Project, groups: list[Group], a_eff: int, b: int, scale
             frags = [f"setpts=(PTS-STARTPTS)/{c.speed:.6f}" if c.speed != 1 else "setpts=PTS-STARTPTS",
                      f"fps=fps={fr}", _fit_fragment(c.fit, W, H)]
             frags += effect_fragments(c, ctx)
-            frags.append("format=yuv420p")
+            # xfade kernels sample all planes at full resolution. Explicit 4:4:4
+            # avoids chroma out-of-bounds access in newer builds accepting 4:2:0.
+            frags.append("format=yuv444p" if len(grp.views) > 1 else "format=yuv420p")
             single = len(grp.views) == 1
             # fade (video)
             fin = c.fade_in

@@ -29,3 +29,11 @@ ProPainter non-commercial sharti sabab qo'shilmadi.
 Haqiqiy Windows installer, playback, GPU, GL/Vulkan va uninstall sinovi hali
 bajarilmagan. Python/Qt/FFmpeg/AI kutubxonalari official Windows wheel va
 runtime'dan yig'ilgan. Paket unsigned alpha, yakuniy mahsulot emas.
+
+## Birinchi native Windows CI (2026-11-16)
+
+GitHub Actions Windows Server 2022, Python 3.11.9, FFmpeg 9.0.2:
+22/23 montaj testi o'tdi. squeezev FFmpeg jarayonida 0xC0000005 bilan
+quladi. Xfade zanjiri oldidan full-resolution yuv444p format majburiy qilindi;
+4:2:0 chroma bilan to'g'ridan-to'g'ri ishlashdan keladigan muammo oldi olindi. Paketdagi
+FFmpeg topish yo'li ham tuzatildi. Keyingi CI natijasi alohida tekshiriladi.

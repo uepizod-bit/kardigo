@@ -98,6 +98,29 @@ def test_transition_pixels():
 
 
 @test
+def test_squeeze_preserves_geometry():
+    p = new_project(320, 180)
+    src = TMP / "split-colors.mp4"
+    subprocess.run([FFMPEG, "-v", "error", "-y", "-f", "lavfi", "-i",
+                    "color=red:s=320x180:r=25:d=3,drawbox=x=iw/2:y=0:w=iw/2:h=ih:color=green:t=fill",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", str(src)], check=True)
+    add_asset(p, "split", str(src))
+    add_asset(p, "blue", media("blue", "0x0000ff", freq=880))
+    edit.add_clip(p, "V1", "split", 0, 0, 40)
+    c2 = edit.add_clip(p, "V1", "blue", 40, 0, 40)
+    edit.set_transition(p, c2.id, "squeezev", 12)
+    output = exporter.export(p, str(TMP / "squeeze.mp4"), "draft", prefer_hw=False)
+    raw = subprocess.check_output([FFMPEG, "-v", "error", "-ss", "1.36", "-i", output.path,
+                                   "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"])
+    width, height = probe(output.path).width, probe(output.path).height
+    row = np.frombuffer(raw, np.uint8).reshape(height, width, 3)[height // 2]
+    left, red, green, right = [row[round(width*x)].tolist() for x in (.1, .4, .6, .9)]
+    assert left[2] > 180 and right[2] > 180, (left, right)
+    assert red[0] > 180 and red[1] < 50, red
+    assert green[1] > 80 and green[0] < 50, green
+
+
+@test
 def test_all_transitions_render():
     p = new_project(320, 180)
     add_asset(p, "red", media("red", "0xff0000"))
@@ -552,7 +575,7 @@ def test_beat_detection_on_click_track():
     assert 110 <= r["bpm"] <= 130, r                                  # 0.5s oraliq = 120 BPM
 
 
-ALL = [test_transition_pixels, test_preview_equals_export_frame, test_chunked_export_matches_single,
+ALL = [test_squeeze_preserves_geometry, test_transition_pixels, test_preview_equals_export_frame, test_chunked_export_matches_single,
        test_audio_sync_and_length, test_undo_redo_and_fuzz_invariants, test_locks_protect_clips,
        test_save_load_autosave_recovery, test_subtitles_burn_in_unicode, test_speed_fit_opacity_scale_fades,
        test_ducking_lowers_music, test_retouch_reduces_spots_keeps_texture, test_retouch_bake_in_export,
