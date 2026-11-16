@@ -326,8 +326,11 @@ def test_save_load_autosave_recovery():
     z = storage.load(f)
     assert len(z.tracks) == 5
     assert Path(str(f) + ".versions").exists()
-    storage.save(p, f)
-    assert len(list(Path(str(f) + ".versions").glob("*.kadrgo"))) >= 2
+    from unittest.mock import patch
+    with patch("kadrgo.core.storage.time.time_ns", return_value=time.time_ns()):
+        storage.save(p, f)
+        storage.save(p, f)
+    assert len(list(Path(str(f) + ".versions").glob("*.kadrgo"))) >= 3
 
 
 @test

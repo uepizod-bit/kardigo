@@ -38,8 +38,10 @@ jobs:
       - name: Native FFmpeg editing tests
         run: python tests/test_engine.py
       - name: Native CPU integration tests
+        if: ${{ !cancelled() }}
         run: python ci/integrations_cpu.py
       - name: Native Qt window lifecycle
+        if: ${{ !cancelled() }}
         run: python ci/gui_smoke.py
       - name: Build and verify installer
         shell: pwsh

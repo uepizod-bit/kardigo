@@ -53,7 +53,18 @@ def save(project: Project, path: str | Path, keep_version: bool = True) -> Path:
     if keep_version and path.exists():
         vdir = Path(str(path) + ".versions")
         vdir.mkdir(exist_ok=True)
-        shutil.copy2(path, vdir / f"{time.strftime('%Y%m%d-%H%M%S')}-{time.time_ns():019d}.kadrgo")
+        stamp = time.time_ns()
+        prefix = time.strftime('%Y%m%d-%H%M%S')
+        while True:
+            backup = vdir / f"{prefix}-{stamp:019d}.kadrgo"
+            try:
+                with backup.open("xb") as dst, path.open("rb") as src:
+                    shutil.copyfileobj(src, dst)
+                break
+            except FileExistsError:
+                # Windows clock resolution can tie even for time_ns(). Exclusive
+                # creation prevents two fast saves from overwriting a version.
+                stamp += 1
         olds = sorted(vdir.glob("*.kadrgo"))
         for o in olds[:-KEEP_VERSIONS]:
             with_suppress_remove(o)
