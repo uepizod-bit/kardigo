@@ -20,5 +20,8 @@ from kadrgo.core.hardware import detect
 from kadrgo.ui.main_window import MainWindow
 app=QApplication([])
 with tempfile.TemporaryDirectory() as tmp:
- win=MainWindow(Vault(tmp),detect(),None);win.show();QTimer.singleShot(2000,win.close);QTimer.singleShot(10000,app.quit);app.exec();QThreadPool.globalInstance().waitForDone(30000)
+ vault=Vault(tmp)
+ win=MainWindow(vault,detect(),None);win.show();QTimer.singleShot(2000,win.close);QTimer.singleShot(10000,app.quit);app.exec()
+ assert QThreadPool.globalInstance().waitForDone(30000), "Background work did not finish"
+ vault.close()
 print('Installed embedded runtime, FFmpeg discovery and Qt window: PASS')

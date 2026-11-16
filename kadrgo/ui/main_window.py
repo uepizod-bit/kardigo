@@ -491,6 +491,8 @@ class MainWindow(QMainWindow):
         if self._confirm_discard():
             if self.player:
                 self.player.stop()
+            self.frame_timer.stop()
+            self.autosave_timer.stop()
             ev.accept()
         else:
             ev.ignore()
