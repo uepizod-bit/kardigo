@@ -311,7 +311,16 @@ def build_video(project: Project, groups: list[Group], a_eff: int, b: int, scale
                 kind = tr["kind"] if tr["kind"] in TRANSITIONS else "fade"
                 nxt = L.new()
                 off = Fraction(acc_len - d) / fps
-                L.add(f"[{acc}][{out}]xfade=transition={kind}:duration={_sec(d, fps)}:offset={float(off):.6f}[{nxt}]")
+                transition = f"transition={kind}"
+                if kind == "squeezev":
+                    # The Win64 built-in squeezev kernel crashes in FFmpeg 9.0.2.
+                    # Equivalent full-resolution sampling avoids that native kernel.
+                    z = "(0.5+(X/W-0.5)/max(P,0.000001))"
+                    x = f"clip({z}*(W-1),0,W-1)"
+                    sample = f"if(eq(PLANE,0),a0({x},Y),if(eq(PLANE,1),a1({x},Y),a2({x},Y)))"
+                    expr = f"if(gt(P,0),if(between({z},0,1),{sample},B),B)"
+                    transition = f"transition=custom:expr='{expr}'"
+                L.add(f"[{acc}][{out}]xfade={transition}:duration={_sec(d, fps)}:offset={float(off):.6f}[{nxt}]")
                 acc, acc_len = nxt, acc_len + v.duration - d
         s_t = Fraction(grp.start - a_eff) / fps
         e_t = s_t + Fraction(acc_len) / fps

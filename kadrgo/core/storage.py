@@ -53,7 +53,7 @@ def save(project: Project, path: str | Path, keep_version: bool = True) -> Path:
     if keep_version and path.exists():
         vdir = Path(str(path) + ".versions")
         vdir.mkdir(exist_ok=True)
-        shutil.copy2(path, vdir / f"{time.strftime('%Y%m%d-%H%M%S')}.kadrgo")
+        shutil.copy2(path, vdir / f"{time.strftime('%Y%m%d-%H%M%S')}-{time.time_ns():019d}.kadrgo")
         olds = sorted(vdir.glob("*.kadrgo"))
         for o in olds[:-KEEP_VERSIONS]:
             with_suppress_remove(o)
@@ -69,7 +69,19 @@ def autosave(project: Project, path: str | Path):
 def has_recovery(path: str | Path) -> bool:
     a = Path(str(path) + ".autosave")
     p = Path(path)
-    return a.exists() and (not p.exists() or a.stat().st_mtime > p.stat().st_mtime)
+    try:
+        if not a.exists():
+            return False
+        if not p.exists():
+            return True
+        auto_time, saved_time = a.stat().st_mtime_ns, p.stat().st_mtime_ns
+        if auto_time != saved_time:
+            return auto_time > saved_time
+        # Windows can give consecutive writes identical timestamps. Never hide
+        # different unsaved work just because the filesystem clock tied.
+        return a.read_bytes() != p.read_bytes()
+    except FileNotFoundError:
+        return False
 
 
 def load(path: str | Path) -> Project:

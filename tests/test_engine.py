@@ -315,6 +315,9 @@ def test_save_load_autosave_recovery():
     edit.add_clip(p, "V1", "a", 100, 0, 20)
     storage.autosave(p, f)
     assert storage.has_recovery(f)
+    auto_path = Path(str(f) + ".autosave")
+    os.utime(auto_path, ns=(f.stat().st_atime_ns, f.stat().st_mtime_ns))
+    assert storage.has_recovery(f), "Same-timestamp unsaved work must be recoverable"
     r = storage.load_recovery(f)
     assert state_hash(r) == state_hash(p)
     # buzilgan fayl -> oxirgi versiyadan tiklanadi
@@ -323,6 +326,8 @@ def test_save_load_autosave_recovery():
     z = storage.load(f)
     assert len(z.tracks) == 5
     assert Path(str(f) + ".versions").exists()
+    storage.save(p, f)
+    assert len(list(Path(str(f) + ".versions").glob("*.kadrgo"))) >= 2
 
 
 @test
