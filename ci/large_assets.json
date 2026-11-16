@@ -1,0 +1,50 @@
+{
+  "whisper": [
+    {
+      "path": "assets/models/whisper-tiny/config.json",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/main/config.json",
+      "sha256": "a73a28cdfe1c43ccc7202fa333d1f89c202477271407ae9a7f19afa52039cac8"
+    },
+    {
+      "path": "assets/models/whisper-tiny/model.bin",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/main/model.bin",
+      "sha256": "dcb76c6586fc06cbdac6dd21f14cfd129cc4cdd9dce19bf4ffa62e59cbe6e6d1"
+    },
+    {
+      "path": "assets/models/whisper-tiny/tokenizer.json",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/main/tokenizer.json",
+      "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab"
+    },
+    {
+      "path": "assets/models/whisper-tiny/vocabulary.txt",
+      "url": "https://huggingface.co/Systran/faster-whisper-tiny/resolve/main/vocabulary.txt",
+      "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913"
+    }
+  ],
+  "archives": [
+    {
+      "name": "frei0r.zip",
+      "url": "https://github.com/dyne/frei0r/releases/download/v3.7.1/frei0r-3.7.1_win64.zip",
+      "destination": "assets/frei0r",
+      "strip": "frei0r-3.7.1_win64/",
+      "kind": "zip",
+      "sha256": "6c169ecddb8f70725a3e57694f0eb8284eaa20d7b710384711039e8a10ad6d23"
+    },
+    {
+      "name": "upscale.zip",
+      "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip",
+      "destination": "assets/realesrgan",
+      "strip": "",
+      "kind": "zip",
+      "sha256": "abc02804e17982a3be33675e4d471e91ea374e65b70167abc09e31acb412802d"
+    },
+    {
+      "name": "frei0r-source.tar.gz",
+      "url": "https://github.com/dyne/frei0r/archive/refs/tags/v3.7.1.tar.gz",
+      "destination": "third_party/frei0r-source-v3.7.1.tar.gz",
+      "strip": "",
+      "kind": "archive",
+      "sha256": "5543917de48d2e8cc2fa02794240a3613447d00458bc2cf606aef20f4b8da515"
+    }
+  ]
+}

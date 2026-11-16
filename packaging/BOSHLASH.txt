@@ -1,0 +1,44 @@
+KADRGO STUDIO 6.0.1 — WINDOWS AI INTEGRATION ALPHA
+
+Windows 10/11 x64. Setup.exe -> Install -> KADRGO Studio 6 yorlig'i.
+Python, Qt, FFmpeg, asosiy kutubxonalar va Whisper tiny modeli paket ichida.
+Bu imzolanmagan alpha. Haqiqiy Windowsda ijro va installer hali sinalmagan.
+Himoyani o'chirmang. Bloklansa xato matnini yuboring.
+
+ISH JARAYONI
+1. Media import -> ro'yxatdagi videoni ikki marta bosing.
+2. Taymlayn klipini tanlang: kesish, tezlik, o'tish va effektlar o'ngda.
+3. Effektlar tabida look/effektni ikki marta bosib qo'shing.
+4. AI / Rang markazi -> vosita -> Ishga tushirish -> natijani ko'ring ->
+   Natijani loyihaga olish. Ctrl+Z tahrirni qaytaradi.
+5. Ctrl+S: .kadrgo loyiha. Eksport: H.264/HEVC/ProRes.
+
+ICHIDA: 24 rang uslubi, 58 xfade o'tishi, kino effektlari, retush,
+SRT import/eksport, ducking/limiter, lokal baza, 4 shrift va 3 SFX.
+OCIO/ACES: 33-kub SDR transform; to'liq float/HDR pipeline emas.
+PySceneDetect: sahna markerlari. Whisper tiny: CPU subtitr; o'zbekcha aniqlik
+real nutqda tekshirilishi kerak. Original GL shaderlar OpenGL 3.3 orqali
+video asset qiladi. frei0r native FILTER host + rasmiy Windows DLLlar.
+Real-ESRGAN NCNN executable/model bor, Vulkan GPU/driver talab qiladi.
+Generativ face enhancement yoqilmaydi; detallarni original bilan solishtiring.
+
+ALOHIDA SOZLASH TALAB QILADI
+Qwen: Ollama va ko'rish modeli mahalliy 11434 portda ishlasin.
+ComfyUI: mahalliy 8188 port + API-format workflow JSON. Input va modellarni
+ComfyUI'da avval sozlang. Ishonchli workflow tanlang; partner/API nodlari
+internetga murojaat qilishi mumkin. Worker Stop ComfyUI navbatini to'xtatmaydi;
+kerak bo'lsa ComfyUI ichida Stop bosing.
+SAM 2: alohida mos Python + checkpoint/config. PNG maskalar yaratiladi;
+taymlaynda avtomatik node-kompoziting hali yo'q.
+DeepFilterNet: alohida o'rnatilgan Python muhiti kerak, 48 kHz WAV chiqadi.
+OFX: alohida Natron + .ntp loyiha ko'prigi. Ichki OFX host yo'q.
+MLT: tashqi melt + .mlt loyiha ko'prigi. Taymlayn MLT'ga ko'chirilmagan.
+Bu optional modellar va Windows GPU mosligi real qurilmada tekshiriladi.
+
+OLDINGI LOYIHALAR: yuborilgan v0.1 format mos. KADRGO 5.1 formati uchun
+migratsiya yo'q. Oldingi dastur alohida papkada qoladi.
+
+VAULT: %LOCALAPPDATA%\KADRGO Studio 6\Vault
+Projects / Library / Cache / Results / Models / Engines shu yerda.
+Xato jurnali: %LOCALAPPDATA%\KADRGO Studio 6\startup-error.log
+Olib tashlash videolaringiz va Vault'ingizni o'chirmaydi.

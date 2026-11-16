@@ -1,0 +1,47 @@
+name: Windows native validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    env:
+      PYTHONUTF8: '1'
+      QT_MEDIA_BACKEND: ffmpeg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install native Python dependencies
+        run: python -m pip install -r requirements-windows.txt
+      - name: Install official FFmpeg
+        shell: pwsh
+        run: |
+          Invoke-WebRequest https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip -OutFile "$env:RUNNER_TEMP/ffmpeg.zip"
+          Expand-Archive "$env:RUNNER_TEMP/ffmpeg.zip" "$env:RUNNER_TEMP/ffmpeg"
+          $binary = Get-ChildItem "$env:RUNNER_TEMP/ffmpeg" -Filter ffmpeg.exe -Recurse | Select-Object -First 1
+          $binary.DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Fetch and verify Whisper tiny
+        run: python ci/prepare_assets.py
+      - name: Record runtime versions
+        run: |
+          python --version
+          ffmpeg -version
+          python -m pip freeze
+      - name: Native FFmpeg editing tests
+        run: python tests/test_engine.py
+      - name: Native CPU integration tests
+        run: python ci/integrations_cpu.py
+      - name: Native Qt window lifecycle
+        run: python ci/gui_smoke.py
+      - name: Clarify GPU coverage
+        shell: pwsh
+        run: |
+          'OpenGL/Vulkan, real model inference beyond Whisper silence, installer/uninstaller and manual playback remain separate validation requirements.' >> $env:GITHUB_STEP_SUMMARY

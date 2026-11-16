@@ -1,0 +1,14 @@
+test_comfy_protocol (__main__.Tests.test_comfy_protocol) ... ok
+test_gl_video (__main__.Tests.test_gl_video) ... ok
+test_local_url (__main__.Tests.test_local_url) ... ok
+test_ocio (__main__.Tests.test_ocio) ... ok
+test_original_guard (__main__.Tests.test_original_guard) ... ok
+test_qwen_protocol (__main__.Tests.test_qwen_protocol) ... ok
+test_scenes (__main__.Tests.test_scenes) ... ok
+test_whisper_real_model (__main__.Tests.test_whisper_real_model) ... [1794802717.302541] [ef1b1ed02c6f:6    :f]        vfs_fuse.c:413  UCX  ERROR failed to create VFS socket: Operation not permitted
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.651s
+
+OK

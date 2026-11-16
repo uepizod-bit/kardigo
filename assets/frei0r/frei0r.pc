@@ -1,0 +1,10 @@
+prefix=C:/Program Files (x86)/frei0r
+exec_prefix=C:/Program Files (x86)/frei0r
+libdir=C:/Program Files (x86)/frei0r/lib
+includedir=C:/Program Files (x86)/frei0r/include
+
+Name: frei0r
+Description: minimalistic plugin API for video effects
+Version: 3.7.1
+Libs:
+Cflags: -I${includedir}

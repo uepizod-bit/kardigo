@@ -1,0 +1,7 @@
+PySide6-Essentials>=6.6
+PySide6-Addons>=6.6
+numpy>=1.26
+opencv-python-headless>=4.9
+fonttools>=4.50
+# Ixtiyoriy (lokal transkripsiya, o'zbekcha sifati real materialda tekshiriladi):
+# faster-whisper>=1.0

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.downloads/
+output/
+windows6-payload/
+assets/models/whisper-tiny/model.bin
+assets/models/whisper-tiny/tokenizer.json
+assets/models/whisper-tiny/vocabulary.txt
+assets/frei0r/**/*.dll
+assets/realesrgan/*.exe
+assets/realesrgan/*.dll
+assets/realesrgan/models/*.bin
+third_party/*.tar.gz

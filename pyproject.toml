@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kadrgo-studio"
+version = "6.0.1a0"
+description = "KADRGO Studio - AI va professional montaj dasturi (texnik prototip)"
+requires-python = ">=3.10"
+dependencies = ["PySide6-Essentials>=6.6", "PySide6-Addons>=6.6", "numpy>=1.26", "opencv-python-headless>=4.9", "fonttools>=4.50"]
+
+[project.scripts]
+kadrgo = "kadrgo.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["kadrgo*"]

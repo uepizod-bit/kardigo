@@ -1,0 +1,25 @@
+PASS test_transition_pixels  4.8s
+PASS test_preview_equals_export_frame  6.9s
+PASS test_chunked_export_matches_single  6.9s
+PASS test_audio_sync_and_length  1.0s
+PASS test_undo_redo_and_fuzz_invariants  0.6s
+PASS test_locks_protect_clips  0.1s
+PASS test_save_load_autosave_recovery  0.1s
+PASS test_subtitles_burn_in_unicode  2.9s
+PASS test_speed_fit_opacity_scale_fades  1.4s
+PASS test_ducking_lowers_music  2.7s
+PASS test_retouch_reduces_spots_keeps_texture  0.2s
+PASS test_retouch_bake_in_export  2.8s
+PASS test_local_db_and_vault  0.0s
+PASS test_probe_edge_cases  0.3s
+PASS test_cancel_stops_export  2.6s
+PASS test_all_effects_render_defaults  11.7s
+PASS test_all_looks_render  16.6s
+PASS test_all_transitions_render  56.9s
+PASS test_library_scanner_real_files  0.2s
+PASS test_slog3_lut_and_effect  1.2s
+PASS test_ai_plan_validation_and_single_undo  0.1s
+PASS test_jump_cut_removes_silence  0.4s
+PASS test_beat_detection_on_click_track  0.4s
+
+23/23 test o'tdi
