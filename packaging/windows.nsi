@@ -37,7 +37,11 @@ FunctionEnd
 Section
  SetShellVarContext current
  SetOutPath "$INSTDIR"
+ !ifdef WINDOWS_BUILD
+ File /r "${PAYLOAD}\*"
+ !else
  File /r "${PAYLOAD}/*"
+ !endif
  WriteUninstaller "$INSTDIR\Uninstall.exe"
  CreateDirectory "$SMPROGRAMS\KADRGO Studio 6"
  CreateShortcut "$SMPROGRAMS\KADRGO Studio 6\KADRGO Studio 6.lnk" "$INSTDIR\runtime\pythonw.exe" '$\"$INSTDIR\bootstrap.py$\"' "$INSTDIR\KADRGO.ico"
